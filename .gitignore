@@ -59,3 +59,5 @@ deps/gtest/build/
 deps/gtest/googletest/
 deps/pjdfstest/pjdfstest/
 
+# build files
+build/**
