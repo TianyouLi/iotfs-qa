@@ -33,6 +33,7 @@ INCLUDE_DIRECTORIES (
 
 FILE ( GLOB iotfs_SRC "${iotfs_SOURCE_DIR}/../src/*.cpp" )
 
+# remove the iotfs main
 LIST (REMOVE_ITEM iotfs_SRC "${iotfs_SOURCE_DIR}/../src/iotfs.cpp")
 
 ENABLE_TESTING ()
@@ -44,7 +45,7 @@ INCLUDE_DIRECTORIES (${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 ##############
 # Unit Tests
 ##############
-ADD_EXECUTABLE (iotfs_core_test ${iotfs_SRC} test_filesystem.cpp)
+ADD_EXECUTABLE (iotfs_core_test ${iotfs_SRC} test_core.cpp)
 
 # Standard linking to gtest stuff.
 TARGET_LINK_LIBRARIES (iotfs_core_test gtest gtest_main)
