@@ -2,27 +2,36 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 PROJECT(iotfs_unit)
 
-SET ( GCC_COMPILE_FLAGS "-DIOTINFOPROVIDER_EXPORTS -D_FILE_OFFSET_BITS=64 -DFUSE_USE_VERSION=27 -DBOOST_LOG_DYN_LINK -DGTEST_USE_OWN_TR1_TUPLE=0  -Wall -std=c++0x -g")
-SET ( GCC_LINK_FLAGS    "-Wl,-rpath,$(IOTIVITY_LIB_PATH) -g")
+SET ( GCC_COMPILE_FLAGS
+	"-DIOTINFOPROVIDER_EXPORTS -D_FILE_OFFSET_BITS=64 -DFUSE_USE_VERSION=27 -DBOOST_LOG_DYN_LINK -DGTEST_USE_OWN_TR1_TUPLE=0 -fprofile-arcs -ftest-coverage -Wall -std=c++0x -g")
+SET ( GCC_LINK_FLAGS   "-Wl,-rpath,$(IOTIVITY_LIB_PATH) -fprofile-arcs -ftest-coverage -g")
 
 SET ( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}" )
+SET ( CMAKE_C_FLAGS    "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
 SET ( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_LINK_FLAGS}" )
 
 SET ( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${iotfs_unit_SOURCE_DIR}/../bin )
 
 # Set iotfs directory
-ADD_SUBDIRECTORY (${CMAKE_SOURCE_DIR}/../../iotfs/build ${iotfs_unit_BINARY_DIR}/iotfs)
+ADD_SUBDIRECTORY (
+	${CMAKE_SOURCE_DIR}/../../iotfs/build
+	${iotfs_unit_BINARY_DIR}/iotfs
+	EXCLUDE_FROM_ALL
+	)
+SET (CppMicroServices_DIR ${iotfs_SOURCE_DIR}/../deps/cppus/build)
 MESSAGE (STATUS "iotfs project directory:         " ${iotfs_SOURCE_DIR} )
 
 # This adds another subdirectory, which has 'project(gtest)'.
-ADD_SUBDIRECTORY (${CMAKE_SOURCE_DIR}/../deps/gtest/googletest/googletest ${iotfs_unit_BINARY_DIR}/gtest)
+ADD_SUBDIRECTORY (
+	${CMAKE_SOURCE_DIR}/../deps/gtest/googletest/googletest
+	${iotfs_unit_BINARY_DIR}/gtest)
 MESSAGE (STATUS "gtest project directory:         " ${gtest_SOURCE_DIR} )
 
-# Find dependent packages
-SET (CppMicroServices_DIR ${iotfs_SOURCE_DIR}/../deps/cppus/build)
+# find package
 FIND_PACKAGE (CppMicroServices NO_MODULE REQUIRED)
 FIND_PACKAGE (Boost)
 
+# set include directory
 INCLUDE_DIRECTORIES (
 	${iotfs_SOURCE_DIR}/../inc
 	${iotfs_SOURCE_DIR}/../deps/fusekit/fusekit/include
@@ -56,6 +65,7 @@ TARGET_LINK_LIBRARIES (iotfs_core_test
 	boost_system
 	boost_filesystem
 	boost_log
+	gcov
 	pthread
 	fuse
 	rt
