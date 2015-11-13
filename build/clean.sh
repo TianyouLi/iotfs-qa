@@ -3,6 +3,8 @@ CUR_DIR=`pwd`
 BLD_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 cd ${BLD_DIR}
-make clean
+if [ -f Makefile ]; then
+		make clean
+fi
 rm -rf CMakeCache.txt CMakeFiles CTestTestfile.cmake Makefile Testing cmake_install.cmake gtest iotfs
 cd ${CUR_DIR}
