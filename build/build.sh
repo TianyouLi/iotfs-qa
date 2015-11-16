@@ -9,7 +9,7 @@ cd ${CUR_DIR}
 
 # test
 cd ${BLD_DIR}
-make test
+CTEST_OUTPUT_ON_FAILURE=TRUE make test
 cd ${CUR_DIR}
 
 

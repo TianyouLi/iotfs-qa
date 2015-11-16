@@ -43,7 +43,7 @@ INCLUDE_DIRECTORIES (
 FILE ( GLOB iotfs_SRC "${iotfs_SOURCE_DIR}/../src/*.cpp" )
 
 # remove the iotfs main
-LIST (REMOVE_ITEM iotfs_SRC "${iotfs_SOURCE_DIR}/../src/iotfs.cpp")
+LIST (REMOVE_ITEM iotfs_SRC "${iotfs_SOURCE_DIR}/../src/iotfs_main.cpp")
 
 ENABLE_TESTING ()
 
