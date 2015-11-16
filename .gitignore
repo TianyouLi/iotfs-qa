@@ -64,3 +64,6 @@ build/**
 
 # generated reports
 reports/**
+
+# temporary files
+conformance/pjd/pjdfstest
