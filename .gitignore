@@ -61,3 +61,6 @@ deps/pjdfstest/pjdfstest/
 
 # build files
 build/**
+
+# generated reports
+reports/**
