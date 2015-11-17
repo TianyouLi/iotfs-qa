@@ -1,8 +1,55 @@
 #!/bin/bash
 
-IOTFS_BIN_DIR=@iotfs_SOURCE_DIR@/../bin
+CUR_DIR=`pwd`
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+IOTFS_BIN_DIR=`realpath @iotfs_SOURCE_DIR@/../bin`
 IOTFS_BIN=${IOTFS_BIN_DIR}/iotfs
 IOTFS_PLUGIN_CONFIG=${IOTFS_BIN_DIR}/plugins.xml
 
-echo ${IOTFS_BIN}
-echo ${IOTFS_PLUGIN_CONFIG}
+IOTFS_PID=`pgrep iotfs`
+
+if [ "X${IOTFS_PID}" != "X" ];
+then
+	echo "IoTFS already running by pid [${IOTFS_PID}]"
+	exit 1
+fi
+
+# Enter into iotfs binary directory
+cd ${IOTFS_BIN_DIR}
+
+# Launch IoTFS on ./temp mount point
+mkdir -p temp
+./iotfs -d temp > ${SCRIPT_DIR}/iotfs.log 2>&1 &
+
+# check if iotfs process exists
+IOTFS_PID=`pgrep iotfs`
+if [ "X${IOTFS_PID}" == "X" ];
+then
+	echo "Can not launch IoTFS"
+	exit 1
+fi
+
+# wait 2 seconds for iotfs to take effect
+sleep 2
+
+# check if the iotfs mount appeared in mount tab
+FS_TYPE=`mount | cut -d ' ' -f 1 | grep iotfs`
+if [ "X${FS_TYPE}" == "X" ];
+then
+	echo "Can not find IoTFS in current mount tab"
+	exit 1
+fi
+
+# check if the mount point is the designate one
+FS_MOUNT_POINT=`mount | cut -d ' ' -f 3 | grep ${IOTFS_BIN_DIR}/temp`
+if [ "X${FS_MOUNT_POINT}" == "X" ];
+then
+	echo "Can not find designate mount point for IoTFS in fstab"
+	exit 1
+fi
+
+echo "IoTFS successfully mounted on ${FS_MOUNT_POINT}, pid [${IOTFS_PID}]"
+
+# Go back to original directory
+cd ${CUR_DIR}
