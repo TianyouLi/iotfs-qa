@@ -31,6 +31,16 @@ FILE (COPY ${CMAKE_SOURCE_DIR}/../build/setup.sh
 	GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 FILE (REMOVE ${CMAKE_SOURCE_DIR}/../build/setup.sh)
 
+CONFIGURE_FILE (${CMAKE_SOURCE_DIR}/../build/cleanup.sh.in
+	${CMAKE_SOURCE_DIR}/../build/cleanup.sh @ONLY)
+
+FILE (COPY ${CMAKE_SOURCE_DIR}/../build/cleanup.sh
+	DESTINATION ${CMAKE_SOURCE_DIR}/../conformance/common
+	FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ
+	GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+FILE (REMOVE ${CMAKE_SOURCE_DIR}/../build/cleanup.sh)
+
+
 # This adds another subdirectory, which has 'project(gtest)'.
 ADD_SUBDIRECTORY (
 	${CMAKE_SOURCE_DIR}/../deps/gtest/googletest/googletest

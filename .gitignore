@@ -65,6 +65,7 @@ build/**
 # generated reports
 reports/**
 conformance/common/setup.sh
+conformance/common/cleanup.sh
 conformance/common/*.log
 
 # temporary files
