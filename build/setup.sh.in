@@ -1,0 +1,8 @@
+#!/bin/bash
+
+IOTFS_BIN_DIR=@iotfs_SOURCE_DIR@/../bin
+IOTFS_BIN=${IOTFS_BIN_DIR}/iotfs
+IOTFS_PLUGIN_CONFIG=${IOTFS_BIN_DIR}/plugins.xml
+
+echo ${IOTFS_BIN}
+echo ${IOTFS_PLUGIN_CONFIG}

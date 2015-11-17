@@ -21,6 +21,13 @@ ADD_SUBDIRECTORY (
 SET (CppMicroServices_DIR ${iotfs_SOURCE_DIR}/../deps/cppus/build)
 MESSAGE (STATUS "iotfs project directory:         " ${iotfs_SOURCE_DIR} )
 
+# Generate scripts to launch end-to-end test
+CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/../build/setup.sh.in ${CMAKE_SOURCE_DIR}/../build/setup.sh @ONLY)
+FILE(COPY ${CMAKE_SOURCE_DIR}/../build/setup.sh
+	DESTINATION ${CMAKE_SOURCE_DIR}/../conformance/common
+	FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ
+	GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+
 # This adds another subdirectory, which has 'project(gtest)'.
 ADD_SUBDIRECTORY (
 	${CMAKE_SOURCE_DIR}/../deps/gtest/googletest/googletest

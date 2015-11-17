@@ -64,6 +64,7 @@ build/**
 
 # generated reports
 reports/**
+conformance/common/setup.sh
 
 # temporary files
 conformance/pjd/pjdfstest
