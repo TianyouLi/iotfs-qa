@@ -6,6 +6,6 @@ BLD_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd ${BLD_DIR}
 
 rm -rf googletest
-rm -rf build
+rm -rf build_*
 
 cd ${CUR_DIR}

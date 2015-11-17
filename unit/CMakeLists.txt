@@ -40,12 +40,18 @@ FILE (COPY ${CMAKE_SOURCE_DIR}/../build/cleanup.sh
 	GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 FILE (REMOVE ${CMAKE_SOURCE_DIR}/../build/cleanup.sh)
 
-
 # This adds another subdirectory, which has 'project(gtest)'.
+# ADD_SUBDIRECTORY (
+# 	${CMAKE_SOURCE_DIR}/../deps/gtest/googletest/googletest
+# 	${iotfs_unit_BINARY_DIR}/gtest)
+# MESSAGE (STATUS "gtest project directory:         " ${gtest_SOURCE_DIR} )
+
+# This adds another subdirectory, which has 'project(gmock)'.
 ADD_SUBDIRECTORY (
-	${CMAKE_SOURCE_DIR}/../deps/gtest/googletest/googletest
-	${iotfs_unit_BINARY_DIR}/gtest)
-MESSAGE (STATUS "gtest project directory:         " ${gtest_SOURCE_DIR} )
+	${CMAKE_SOURCE_DIR}/../deps/gtest/googletest/googlemock
+	${iotfs_unit_BINARY_DIR}/gmock)
+MESSAGE (STATUS "gmock project directory:         " ${gmock_SOURCE_DIR} )
+
 
 # find package
 FIND_PACKAGE (CppMicroServices NO_MODULE REQUIRED)
@@ -69,7 +75,7 @@ ENABLE_TESTING ()
 
 # Include the gtest library. gtest_SOURCE_DIR is available due to
 # 'project(gtest)' above.
-INCLUDE_DIRECTORIES (${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+INCLUDE_DIRECTORIES (${gtest_SOURCE_DIR}/include ${gmock_SOURCE_DIR}/include)
 
 ##############
 # Unit Tests
@@ -77,7 +83,7 @@ INCLUDE_DIRECTORIES (${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 ADD_EXECUTABLE (iotfs_core_test ${iotfs_SRC} test_core.cpp)
 
 # Standard linking to gtest stuff.
-TARGET_LINK_LIBRARIES (iotfs_core_test gtest gtest_main)
+TARGET_LINK_LIBRARIES (iotfs_core_test gtest gtest_main gmock gmock_main)
 
 # Target to link iotfs dependent libraries
 TARGET_LINK_LIBRARIES (iotfs_core_test
@@ -96,4 +102,4 @@ TARGET_LINK_LIBRARIES (iotfs_core_test
 
 # This is so you can do 'make test' to see all your tests run, instead of
 # manually running the executable runUnitTests to see those specific tests.
-ADD_TEST (NAME iotfs_core COMMAND iotfs_core_test)
+ADD_TEST (NAME iotfs_core COMMAND iotfs_core_test WORKING_DIRECTORY ${iotfs_SOURCE_DIR}/../bin)

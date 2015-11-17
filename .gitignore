@@ -55,7 +55,8 @@ adapters/onvif/src/gen-cpp/
 adapters/onvif/deps/nodenvc/gen-nodejs/
 
 # gtest & pjdfstest
-deps/gtest/build/
+deps/gtest/build_gmock/
+deps/gtest/build_gtest/
 deps/gtest/googletest/
 deps/pjdfstest/pjdfstest/
 

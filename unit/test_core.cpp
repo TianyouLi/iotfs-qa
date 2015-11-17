@@ -8,7 +8,6 @@
 #include <iotfs/iotfs.h>
 #include <plugins/plugin_manager.h>
 
-
 using namespace iotfs;
 
 TEST(IoTFS_NULL, NULL) {
@@ -24,7 +23,16 @@ TEST(IoTFS_Core, CDtor) {
   EXPECT_NO_THROW(iotfs::CDtor cdtor);
 }
 
+TEST(IoTFS_Core, IoTFolder) {
+  IOTFolder folder;
+  std::string folder_name = "test";
+  EXPECT_NO_THROW(folder.makeChildFolder(folder_name));
+}
+
 TEST(IoTFS_Plugin, PluginManager) {
   PluginManager* pm = PluginManager::instance();
   EXPECT_TRUE(pm != nullptr);
+  delete pm;
 }
+
+
