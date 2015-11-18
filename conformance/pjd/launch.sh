@@ -32,9 +32,18 @@ cd ${IOTFS_MOUNT_POINT}
 # run test using prove
 for sub in ${BLD_DIR}/suites/*/; do
 	LOG "Start Test Suite ======== ${sub}"
-	for case in ${sub}/*.t; do
-		LOG ".. Launch Test `basename ${case}`"
-		prove ${case}
+	SUITE_NAME=`basename ${sub}`
+	for case in ${sub}*.t; do
+		CASE_NAME=`basename ${case}`
+		# see if the test case in blacklist
+		grep "${SUITE_NAME}/${CASE_NAME}" ${BLD_DIR}/blacklist.txt >/dev/null
+		if [ $? -ne 0 ];
+		then
+			LOG ".. Launch Test `basename ${case}`"
+			prove ${case}
+		else
+			LOG ".. Ignore Test `basename ${case}`"
+		fi
 	done
 	LOG "End   Test Suite ======== ${sub}"
 done
