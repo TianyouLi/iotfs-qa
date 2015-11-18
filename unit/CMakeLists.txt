@@ -11,6 +11,8 @@ SET ( CMAKE_C_FLAGS    "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
 SET ( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_LINK_FLAGS}" )
 
 SET ( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${iotfs_unit_SOURCE_DIR}/../bin )
+set ( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${iotfs_unit_SOURCE_DIR}/../lib )
+set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${iotfs_unit_SOURCE_DIR}/../lib )
 
 # Set iotfs directory
 ADD_SUBDIRECTORY (
@@ -20,6 +22,15 @@ ADD_SUBDIRECTORY (
 	)
 SET (CppMicroServices_DIR ${iotfs_SOURCE_DIR}/../deps/cppus/build)
 MESSAGE (STATUS "iotfs project directory:         " ${iotfs_SOURCE_DIR} )
+
+# Set iotfs oic plugin directory
+ADD_SUBDIRECTORY (
+	${CMAKE_SOURCE_DIR}/../../iotfs/build/plugins/oic
+	${iotfs_unit_BINARY_DIR}/iotfs_oic
+#	EXCLUDE_FROM_ALL
+	)
+MESSAGE (STATUS "iotfs oic plugin directory:         " ${IoTFS_OIC_Plugin_SOURCE_DIR} )
+
 
 # Generate scripts to launch end-to-end test
 CONFIGURE_FILE (${CMAKE_SOURCE_DIR}/../build/setup.sh.in
@@ -77,17 +88,14 @@ ENABLE_TESTING ()
 # 'project(gtest)' above.
 INCLUDE_DIRECTORIES (${gtest_SOURCE_DIR}/include ${gmock_SOURCE_DIR}/include)
 
-##############
-# Unit Tests
-##############
-ADD_EXECUTABLE (iotfs_core_test ${iotfs_SRC} test_core.cpp)
-
-# Standard linking to gtest stuff.
-TARGET_LINK_LIBRARIES (iotfs_core_test gtest gtest_main gmock gmock_main)
 
 # Target to link iotfs dependent libraries
-TARGET_LINK_LIBRARIES (iotfs_core_test
+SET ( LIBS
 	${CppMicroServices_LIBRARIES}
+	gtest
+	gtest_main
+	gmock
+	gmock_main
 	boost_system
 	boost_filesystem
 	boost_log
@@ -100,6 +108,22 @@ TARGET_LINK_LIBRARIES (iotfs_core_test
 	)
 
 
-# This is so you can do 'make test' to see all your tests run, instead of
-# manually running the executable runUnitTests to see those specific tests.
+##############
+# Unit Tests
+##############
+ADD_EXECUTABLE (iotfs_core_test
+	${iotfs_SRC}
+	test_oic.cpp
+	)
+TARGET_LINK_LIBRARIES (iotfs_core_test ${LIBS})
 ADD_TEST (NAME iotfs_core COMMAND iotfs_core_test WORKING_DIRECTORY ${iotfs_SOURCE_DIR}/../bin)
+
+
+ADD_EXECUTABLE (iotfs_oic_test
+	${iotfs_SRC}
+	test_oic.cpp
+	)
+TARGET_LINK_LIBRARIES (iotfs_oic_test ${LIBS})
+ADD_TEST (NAME iotfs_oic COMMAND iotfs_oic_test  WORKING_DIRECTORY ${iotfs_SOURCE_DIR}/../bin)
+
+
