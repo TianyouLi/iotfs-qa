@@ -15,5 +15,7 @@ cd ${CUR_DIR}
 if [ -x ${BLD_DIR}/pjdfstest/pjdfstest ]
 then
 	echo "Copy pjdfstest executable to ${BLD_DIR}/../../conformance/pjd/"
-	cp ${BLD_DIR}/pjdfstest/pjdfstest ${BLD_DIR}/../../conformance/pjd/
+	cp -f ${BLD_DIR}/pjdfstest/pjdfstest ${BLD_DIR}/../../conformance/pjd/
+	cp -f ${BLD_DIR}/pjdfstest/tests/conf ${BLD_DIR}/../../conformance/pjd/suites
+	cp -f ${BLD_DIR}/pjdfstest/tests/misc.sh ${BLD_DIR}/../../conformance/pjd/suites
 fi

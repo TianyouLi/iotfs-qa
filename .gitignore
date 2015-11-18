@@ -71,3 +71,5 @@ conformance/common/*.log
 
 # temporary files
 conformance/pjd/pjdfstest
+conformance/pjd/suites/conf
+conformance/pjd/suites/misc.sh
