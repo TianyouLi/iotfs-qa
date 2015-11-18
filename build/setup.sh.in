@@ -49,7 +49,7 @@ then
 	exit 1
 fi
 
-echo "IoTFS successfully mounted on ${FS_MOUNT_POINT}, pid [${IOTFS_PID}]"
+echo "${FS_MOUNT_POINT} ${IOTFS_PID}"
 
 # Go back to original directory
 cd ${CUR_DIR}
