@@ -113,7 +113,7 @@ SET ( LIBS
 ##############
 ADD_EXECUTABLE (iotfs_core_test
 	${iotfs_SRC}
-	test_oic.cpp
+	test_core.cpp
 	)
 TARGET_LINK_LIBRARIES (iotfs_core_test ${LIBS})
 ADD_TEST (NAME iotfs_core COMMAND iotfs_core_test WORKING_DIRECTORY ${iotfs_SOURCE_DIR}/../bin)

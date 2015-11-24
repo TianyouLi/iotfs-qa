@@ -19,8 +19,8 @@ TEST(IoTFS_Core, g_daemon) {
   EXPECT_EQ(0, iotfs::g_daemon.root().stat(stbuf));
 }
 
-TEST(IoTFS_Core, CDtor) {
-  EXPECT_NO_THROW(iotfs::CDtor cdtor);
+TEST(IoTFS_Core, Initialization) {
+  EXPECT_NO_THROW(iotfs::initialize());
 }
 
 TEST(IoTFS_Core, IoTFolder) {
