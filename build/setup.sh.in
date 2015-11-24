@@ -30,8 +30,8 @@ then
 	exit 1
 fi
 
-# wait 2 seconds for iotfs to take effect
-sleep 2
+# wait 5 seconds for iotfs to take effect
+sleep 5
 
 # check if the iotfs mount appeared in mount tab
 FS_TYPE=`mount | cut -d ' ' -f 1 | grep iotfs`
