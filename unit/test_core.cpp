@@ -6,6 +6,7 @@
 
 // target under test
 #include <iotfs/iotfs.h>
+#include <iotfs/utils.h>
 #include <plugins/plugin_manager.h>
 
 using namespace iotfs;
@@ -27,6 +28,19 @@ TEST(IoTFS_Core, IoTFolder) {
   IOTFolder folder;
   std::string folder_name = "test";
   EXPECT_NO_THROW(folder.makeChildFolder(folder_name));
+}
+
+TEST(IoTFS_Core, lexicalcast) {
+  std::string T = "true";
+  std::string F = "false";
+  std::string Tx = "truex";
+  std::string Fx = "falsex";
+
+  EXPECT_TRUE(boost::lexical_cast<bool>(T));
+  EXPECT_FALSE(boost::lexical_cast<bool>(F));
+  
+  EXPECT_ANY_THROW(boost::lexical_cast<bool>(Tx));
+  EXPECT_ANY_THROW(boost::lexical_cast<bool>(Fx));
 }
 
 TEST(IoTFS_Plugin, PluginManager) {
