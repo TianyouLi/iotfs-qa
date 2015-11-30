@@ -15,6 +15,9 @@ then
 	exit 1
 fi
 
+#export environment variable
+export IOTFS_BIN_DIR=${IOTFS_BIN_DIR}
+
 # Enter into iotfs binary directory
 cd ${IOTFS_BIN_DIR}
 
