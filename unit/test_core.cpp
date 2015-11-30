@@ -25,7 +25,7 @@ TEST(IoTFS_Core, Initialization) {
 }
 
 TEST(IoTFS_Core, IoTFolder) {
-  IOTFolder folder;
+  IoTFolder folder;
   std::string folder_name = "test";
   EXPECT_NO_THROW(folder.makeChildFolder(folder_name));
 }
