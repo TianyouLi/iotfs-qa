@@ -23,6 +23,7 @@ ADD_SUBDIRECTORY (
 SET (CppMicroServices_DIR ${iotfs_SOURCE_DIR}/../deps/cppus/build)
 MESSAGE (STATUS "iotfs project directory:         " ${iotfs_SOURCE_DIR} )
 
+
 # Set iotfs oic plugin directory
 ADD_SUBDIRECTORY (
 	${CMAKE_SOURCE_DIR}/../../iotfs/build/plugins/oic
@@ -125,5 +126,4 @@ ADD_EXECUTABLE (iotfs_oic_test
 	)
 TARGET_LINK_LIBRARIES (iotfs_oic_test ${LIBS})
 ADD_TEST (NAME iotfs_oic COMMAND iotfs_oic_test  WORKING_DIRECTORY ${iotfs_SOURCE_DIR}/../bin)
-
 

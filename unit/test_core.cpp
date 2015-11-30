@@ -1,3 +1,5 @@
+#include <memory>
+
 // unit test framework
 #include <gtest/gtest.h>
 
@@ -20,8 +22,9 @@ TEST(IoTFS_Core, g_daemon) {
   EXPECT_EQ(0, iotfs::g_daemon.root().stat(stbuf));
 }
 
-TEST(IoTFS_Core, Initialization) {
-  EXPECT_NO_THROW(iotfs::initialize());
+TEST(IoTFS_Core, IoTFSInitializer) {
+  EXPECT_NO_THROW(std::shared_ptr<IoTFSInitializer> p
+                  = std::make_shared<IoTFSInitializer>());
 }
 
 TEST(IoTFS_Core, IoTFolder) {

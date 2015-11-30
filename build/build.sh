@@ -9,7 +9,7 @@ cd ${CUR_DIR}
 
 # test
 cd ${BLD_DIR}
-CTEST_OUTPUT_ON_FAILURE=TRUE make test
+IOTFS_BIN_DIR=${BLD_DIR}/../../iotfs/bin CTEST_OUTPUT_ON_FAILURE=TRUE make test
 cd ${CUR_DIR}
 
 
