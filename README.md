@@ -20,27 +20,27 @@ The IoTFS-QA was built and tested under Ubuntu 14.04 amd64 system.
 1. Please make sure you have git clone iotfs-core project and successfully build it. 
 
 2. Execute ${IOTFSQA}/deps/buildall.sh
-	 ```
-	 cd ${IOTFSQA}
-	 ./deps/buildall.sh
-	 ```
+   ```
+   cd ${IOTFSQA}
+   ./deps/buildall.sh
+   ```
 
 3. Execute ${IOTFSQA}/build/build.sh, this will build all unit test cases and execute them.
-	 ```
-	 cd ${IOTFSQA}
-	 ./build/build.sh
-	 ```
+   ```
+   cd ${IOTFSQA}
+   ./build/build.sh
+   ```
 
 4. Execute ${IOTFSQA}/conformance/scripts/launchAll.sh. It will launch the conformance test cases.
-	 ```
-	 cd ${IOTFSQA}
-	 ./conformance/scripts/launchAll.sh
-	 ```
+   ```
+   cd ${IOTFSQA}
+   ./conformance/scripts/launchAll.sh
+   ```
 
 ## Contributors
    | Name       | Email                     | Github id    |
-	 |------------|---------------------------|--------------|
-	 | Tianyou Li | <tianyou.li@gmail.com>    | TianyouLi    |
-	 |            |                           |              |
+   |------------|---------------------------|--------------|
+   | Tianyou Li | <tianyou.li@gmail.com>    | TianyouLi    |
+   |            |                           |              |
 
 
