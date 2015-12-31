@@ -39,9 +39,9 @@ The IoTFS-QA was built and tested under Ubuntu 14.04 amd64 system.
 
 ## Contributors
 
-   | Name       | Email                     | Github id    |
-   |------------|---------------------------|--------------|
-   | Tianyou Li | <tianyou.li@gmail.com>    | TianyouLi    |
-   |            |                           |              |
+| Name       | Email                     | Github id    |
+|------------|---------------------------|--------------|
+| Tianyou Li | <tianyou.li@gmail.com>    | TianyouLi    |
+|            |                           |              |
 
 
